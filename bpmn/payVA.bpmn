@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1abt66d" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1abt66d" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:collaboration id="Collaboration_07iv80a">
     <bpmn:participant id="Participant_1nji27d" name="payVA" processRef="Process_1" />
     <bpmn:participant id="Participant_0x2mpsp" name="Bank" processRef="Process_139932m" />
@@ -13,7 +13,7 @@
   <bpmn:process id="Process_1" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_1foky9s</bpmn:outgoing>
-      <bpmn:messageEventDefinition />
+      <bpmn:messageEventDefinition messageRef="Message_1pphmj5" />
     </bpmn:startEvent>
     <bpmn:task id="Task_0vy2dj5" name="Generate PaymentID">
       <bpmn:incoming>SequenceFlow_1foky9s</bpmn:incoming>
@@ -22,30 +22,30 @@
     <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_01bmtyt">
       <bpmn:incoming>SequenceFlow_1bulb33</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0abgsr7</bpmn:outgoing>
-      <bpmn:messageEventDefinition />
+      <bpmn:messageEventDefinition messageRef="Message_071xa21" />
     </bpmn:intermediateThrowEvent>
     <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_0co1h1y">
       <bpmn:incoming>SequenceFlow_0abgsr7</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0aghnxq</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_06q6359</bpmn:outgoing>
-      <bpmn:messageEventDefinition />
+      <bpmn:messageEventDefinition messageRef="Message_0sa2ehz" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1foky9s" sourceRef="StartEvent_1" targetRef="Task_0vy2dj5" />
     <bpmn:sequenceFlow id="SequenceFlow_1bulb33" sourceRef="Task_0vy2dj5" targetRef="IntermediateThrowEvent_01bmtyt" />
     <bpmn:sequenceFlow id="SequenceFlow_0abgsr7" sourceRef="IntermediateThrowEvent_01bmtyt" targetRef="IntermediateThrowEvent_0co1h1y" />
     <bpmn:sequenceFlow id="SequenceFlow_0aghnxq" sourceRef="IntermediateThrowEvent_0co1h1y" targetRef="IntermediateThrowEvent_0gmb14e" />
-    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_0gmb14e">
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_0gmb14e" name="sendIDVANumber">
       <bpmn:incoming>SequenceFlow_0aghnxq</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1d2lz45</bpmn:outgoing>
-      <bpmn:messageEventDefinition />
+      <bpmn:messageEventDefinition messageRef="Message_16w9zl5" />
     </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="SequenceFlow_06q6359" sourceRef="IntermediateThrowEvent_0co1h1y" targetRef="IntermediateThrowEvent_0grotl5" />
     <bpmn:sequenceFlow id="SequenceFlow_1d2lz45" sourceRef="IntermediateThrowEvent_0gmb14e" targetRef="IntermediateThrowEvent_1054kln" />
-    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1054kln">
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1054kln" name="receivePaymentStatus">
       <bpmn:incoming>SequenceFlow_1d2lz45</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0k8nl0h</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_08p1xgv</bpmn:outgoing>
-      <bpmn:messageEventDefinition />
+      <bpmn:messageEventDefinition messageRef="Message_0xta7cd" />
     </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0b2h67m">
       <bpmn:incoming>SequenceFlow_08p1xgv</bpmn:incoming>
@@ -53,22 +53,35 @@
       <bpmn:outgoing>SequenceFlow_1um5gmp</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_08p1xgv" sourceRef="IntermediateThrowEvent_1054kln" targetRef="ExclusiveGateway_0b2h67m" />
-    <bpmn:sequenceFlow id="SequenceFlow_0k8nl0h" sourceRef="ExclusiveGateway_0b2h67m" targetRef="IntermediateThrowEvent_1054kln" />
-    <bpmn:sequenceFlow id="SequenceFlow_1um5gmp" sourceRef="ExclusiveGateway_0b2h67m" targetRef="EndEvent_08w37mo" />
-    <bpmn:endEvent id="EndEvent_08w37mo">
+    <bpmn:sequenceFlow id="SequenceFlow_0k8nl0h" sourceRef="ExclusiveGateway_0b2h67m" targetRef="IntermediateThrowEvent_1054kln">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">else</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1um5gmp" sourceRef="ExclusiveGateway_0b2h67m" targetRef="EndEvent_08w37mo">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">receivedStatus==status</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_08w37mo" name="sendPaymentStatus">
       <bpmn:incoming>SequenceFlow_1um5gmp</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1si702d</bpmn:incoming>
-      <bpmn:messageEventDefinition />
+      <bpmn:messageEventDefinition messageRef="Message_19jvs5x" />
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1si702d" sourceRef="IntermediateThrowEvent_0grotl5" targetRef="EndEvent_08w37mo" />
-    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_0grotl5">
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_0grotl5" name="3 hours">
       <bpmn:incoming>SequenceFlow_06q6359</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1si702d</bpmn:outgoing>
-      <bpmn:timerEventDefinition />
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P3H</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmn:process id="Process_139932m" isExecutable="false" />
   <bpmn:process id="Process_12yj0qn" isExecutable="false" />
+  <bpmn:message id="Message_1pphmj5" name="paymentRequest" />
+  <bpmn:message id="Message_071xa21" name="requestVANumber" />
+  <bpmn:message id="Message_0sa2ehz" name="receiveVANumber" />
+  <bpmn:message id="Message_16w9zl5" name="sendIDVANumber" />
+  <bpmn:message id="Message_0nwtt60" name="Message_1ijo3u1" />
+  <bpmn:message id="Message_0xta7cd" name="receivePaymentStatus" />
+  <bpmn:message id="Message_19jvs5x" name="sendPaymentStatus" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_07iv80a">
       <bpmndi:BPMNShape id="Participant_1nji27d_di" bpmnElement="Participant_1nji27d">
@@ -124,6 +137,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateThrowEvent_0txnf53_di" bpmnElement="IntermediateThrowEvent_0gmb14e">
         <dc:Bounds x="593" y="257" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="576" y="299" width="89" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1ky1o32_di" bpmnElement="MessageFlow_1ky1o32">
         <di:waypoint x="611" y="257" />
@@ -137,6 +153,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_0xa6h0l_di" bpmnElement="IntermediateThrowEvent_0grotl5">
         <dc:Bounds x="635" y="323" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="634" y="366" width="38" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1d2lz45_di" bpmnElement="SequenceFlow_1d2lz45">
         <di:waypoint x="629" y="275" />
@@ -144,6 +163,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_06w8v79_di" bpmnElement="IntermediateThrowEvent_1054kln">
         <dc:Bounds x="679" y="257" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="654" y="310" width="86" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1e8nwlo_di" bpmnElement="MessageFlow_1e8nwlo">
         <di:waypoint x="697" y="415" />
@@ -168,6 +190,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1e6zchw_di" bpmnElement="EndEvent_08w37mo">
         <dc:Bounds x="865" y="257" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="914" y="265" width="85" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1si702d_di" bpmnElement="SequenceFlow_1si702d">
         <di:waypoint x="671" y="341" />
