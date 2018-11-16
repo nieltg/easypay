@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0vcjwxr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:collaboration id="Collaboration_0ucnmy0">
-    <bpmn:participant id="Participant_0py1545" name="payOVO" processRef="Process_1" />
-    <bpmn:participant id="Participant_0thnko0" name="OVO" processRef="Process_0898g6l" />
+    <bpmn:participant id="Participant_0py1545" name="payGopay" processRef="Process_1" />
+    <bpmn:participant id="Participant_0thnko0" name="Gopay" processRef="Process_0898g6l" />
     <bpmn:participant id="Participant_0b34b16" name="Consumer" processRef="Process_1nhvcxs" />
     <bpmn:messageFlow id="MessageFlow_04jsm76" name="Receive QRCode" sourceRef="Participant_0thnko0" targetRef="IntermediateThrowEvent_01rz2pq" />
     <bpmn:messageFlow id="MessageFlow_18g67om" name="Send Request for QRCode" sourceRef="IntermediateThrowEvent_1buby93" targetRef="Participant_0thnko0" />
