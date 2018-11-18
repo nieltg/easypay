@@ -1,0 +1,24 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.10'
+
+    id 'war'
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10'
+
+    implementation 'org.camunda.bpm:camunda-bom:7.10.0-alpha5'
+    compileOnly 'org.camunda.bpm:camunda-engine'
+    implementation 'org.camunda.bpm:camunda-engine-cdi'
+    implementation 'org.camunda.bpm.javaee:camunda-ejb-client'
+
+    compileOnly 'org.wildfly:wildfly-spec-api:14.0.1.Final'
+}
+
+repositories {
+    jcenter()
+
+    maven {
+        url 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases'
+    }
+}
