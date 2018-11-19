@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0vcjwxr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0vcjwxr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:collaboration id="Collaboration_0ucnmy0">
-    <bpmn:participant id="Participant_0py1545" processRef="Process_1" />
+    <bpmn:participant id="Participant_0py1545" processRef="Process_0" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1" isExecutable="true">
+  <bpmn:process id="Process_0" isExecutable="true">
     <bpmn:sequenceFlow id="SequenceFlow_1j9b3u1" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_02w5hxc" />
-    <bpmn:startEvent id="StartEvent_1" camunda:initiator="paymentRequest">
+    <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_1j9b3u1</bpmn:outgoing>
-      <bpmn:messageEventDefinition messageRef="Message_1cink6v" />
+      <bpmn:messageEventDefinition messageRef="payment-request" />
     </bpmn:startEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_02w5hxc">
       <bpmn:incoming>SequenceFlow_1j9b3u1</bpmn:incoming>
@@ -21,28 +21,28 @@
       <bpmn:outgoing>SequenceFlow_0lc2906</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_0eo0k6b" sourceRef="ExclusiveGateway_02w5hxc" targetRef="Task_0tsgfqz">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">trans=="Gopay"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">payment-method-id = 2</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:task id="Task_1d43jnd" name="payBank">
       <bpmn:incoming>SequenceFlow_0j3rpx1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0qqb317</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_0j3rpx1" sourceRef="ExclusiveGateway_02w5hxc" targetRef="Task_1d43jnd">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">trans=="Bank"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">payment-method-id = 3</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:task id="Task_1tj8p3v" name="payVA">
       <bpmn:incoming>SequenceFlow_0qi4za0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1fbxvhu</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_0qi4za0" sourceRef="ExclusiveGateway_02w5hxc" targetRef="Task_1tj8p3v">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">trans=="VA"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">payment-method-id = 4</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:task id="Task_065rfy3" name="payOVO">
       <bpmn:incoming>SequenceFlow_0yh862r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_01shj8e</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_0yh862r" sourceRef="ExclusiveGateway_02w5hxc" targetRef="Task_065rfy3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">trans=="OVO"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">payment-method-id == 1</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="ExclusiveGateway_08rqjii">
       <bpmn:incoming>SequenceFlow_1fbxvhu</bpmn:incoming>
@@ -60,21 +60,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1e674p3" sourceRef="ExclusiveGateway_08rqjii" targetRef="EndEvent_16l8xlx" />
   </bpmn:process>
-  <bpmn:message id="Message_1ptzdc6" />
-  <bpmn:message id="Message_1bvh1yw" />
-  <bpmn:message id="Message_05nuxlw" />
-  <bpmn:message id="Message_1qyh1rp" />
-  <bpmn:message id="Message_0z5xrgo" />
-  <bpmn:message id="Message_0hy8hwr" />
-  <bpmn:message id="Message_0sz4trz" />
-  <bpmn:message id="Message_1gvrlxj" />
-  <bpmn:message id="Message_0m1vu0m" />
-  <bpmn:message id="Message_0p0ldjk" />
-  <bpmn:message id="Message_1f3epnt" />
-  <bpmn:message id="Message_0sbqxak" />
-  <bpmn:message id="Message_0p5jgy2" name="Message_3rbpp8s" />
-  <bpmn:message id="Message_1qufdqr" name="Message_2tq8d7q" />
-  <bpmn:message id="Message_1cink6v" name="Message_10tsgcn" />
+  <bpmn:message id="payment-request" name="paymentRequest" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0ucnmy0">
       <bpmndi:BPMNShape id="Participant_0py1545_di" bpmnElement="Participant_0py1545">

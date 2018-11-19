@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1abt66d" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:collaboration id="Collaboration_07iv80a">
-    <bpmn:participant id="Participant_1nji27d" name="payVA" processRef="Process_1" />
+    <bpmn:participant id="Participant_1nji27d" name="payBank" processRef="Process_3" />
     <bpmn:participant id="Participant_0x2mpsp" name="Bank" processRef="Process_139932m" />
     <bpmn:participant id="Participant_07trmyx" name="Consumer" processRef="Process_12yj0qn" />
     <bpmn:messageFlow id="MessageFlow_1nmcgwc" sourceRef="IntermediateThrowEvent_1y0gefv" targetRef="Participant_07trmyx" />
     <bpmn:messageFlow id="MessageFlow_1rqme2y" sourceRef="Participant_0x2mpsp" targetRef="IntermediateThrowEvent_0d9m3m8" />
     <bpmn:messageFlow id="MessageFlow_1fuwq7g" sourceRef="EndEvent_1hvorwe" targetRef="Participant_07trmyx" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1" isExecutable="true">
+  <bpmn:process id="Process_3" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_1foky9s</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_05simf4" />

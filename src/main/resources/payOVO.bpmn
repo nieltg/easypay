@@ -117,7 +117,7 @@
   <bpmn:message id="Message_1yg8zgn" name="sendIDQRCode" />
   <bpmn:message id="Message_0le4ixi" name="receivePaymentStatus" />
   <bpmn:message id="Message_16okqiq" name="sendPaymentStatus" />
-  <bpmn:message id="Message_0xhbfod" name="paymentRequest" />
+  <bpmn:message id="payment-request" name="paymentRequest" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0ucnmy0">
       <bpmndi:BPMNShape id="Participant_0py1545_di" bpmnElement="Participant_0py1545">
