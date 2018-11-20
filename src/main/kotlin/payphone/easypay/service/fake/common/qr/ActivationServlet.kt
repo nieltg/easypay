@@ -17,7 +17,8 @@ abstract class ActivationServlet(val messageName: String) : HttpServlet() {
             return
         }
 
-        runtimeService.startProcessInstanceByMessage(
-                messageName, mutableMapOf<String, Any>("code" to code))
+        runtimeService.createMessageCorrelation(messageName)
+                .processInstanceId(code)
+                .correlate()
     }
 }

@@ -20,11 +20,10 @@ class OVOQRImageServlet : QRImageServlet(
 class OVOQRViewServlet : QRViewServlet(jspPath = "/WEB-INF/jsp/ovo.jsp")
 
 @Stateless
-@Named
-class OVOService {
-    fun requestPayment(execution: DelegateExecution) {
-        val paymentId = execution.getVariable("paymentId").toString()
-
-        execution.setVariable("qrId", paymentId)
+@Named("ovoService")
+open class OVOService {
+    fun beginValidation(execution: DelegateExecution) {
+        execution.setVariable("qrId", execution.processInstanceId)
+        println("PROCESS INSTANCE ID: ${execution.processInstanceId}")
     }
 }

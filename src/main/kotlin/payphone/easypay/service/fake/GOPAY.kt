@@ -20,9 +20,9 @@ class GOPAYQRImageServlet : QRImageServlet(
 class GOPAYQRViewServlet : QRViewServlet(jspPath = "/WEB-INF/jsp/gopay.jsp")
 
 @Stateless
-@Named
-class GOPAYService {
-    fun requestPayment(execution: DelegateExecution) {
+@Named("gopayService")
+open class GOPAYService {
+    fun beginValidation(execution: DelegateExecution) {
         val paymentId = execution.getVariable("paymentId").toString()
 
         execution.setVariable("qrId", paymentId)
