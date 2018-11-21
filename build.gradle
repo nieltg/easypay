@@ -13,6 +13,7 @@ dependencies {
     implementation 'org.camunda.bpm.javaee:camunda-ejb-client'
 
     compileOnly 'org.wildfly:wildfly-spec-api:14.0.1.Final'
+    compileOnly 'org.apache.cxf:cxf-rt-frontend-jaxws'
 
     implementation 'uk.org.okapibarcode:okapibarcode:0.1.9'
 }
@@ -20,6 +21,9 @@ dependencies {
 repositories {
     jcenter()
 
+    maven {
+        url 'https://repository.jboss.org/nexus/content/repositories/releases'
+    }
     maven {
         url 'https://repository.jboss.org/nexus/content/repositories/thirdparty-releases'
     }
