@@ -1,7 +1,6 @@
 package payphone.easypay.ws
 
 import org.camunda.bpm.engine.RuntimeService
-import java.math.BigDecimal
 import java.util.concurrent.Future
 import javax.inject.Inject
 import javax.jws.WebService
@@ -20,7 +19,7 @@ open class PaymentServiceImpl : PaymentService {
             PaymentMethod(paymentMethodId = "bank", name = "Transfer ke Virtual Account"),
             PaymentMethod(paymentMethodId = "bank_classic", name = "Transfer Bank (angka unik)"))
 
-    override fun beginPayment(paymentMethodId: String, amount: BigDecimal): String {
+    override fun beginPayment(request: PaymentRequest): String {
         TODO("not implemented")
     }
 
