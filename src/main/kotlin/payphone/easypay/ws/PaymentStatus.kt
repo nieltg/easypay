@@ -1,6 +1,7 @@
 package payphone.easypay.ws
 
 import java.math.BigDecimal
+import javax.xml.bind.annotation.*
 
 enum class PaymentStatusValue(val value: String) {
     IN_PROGRESS("IN_PROGRESS"),
@@ -11,14 +12,24 @@ enum class PaymentStatusValue(val value: String) {
     FAIL("FAIL")
 }
 
-data class PendingOpenURLExtra(val url: String)
-data class PaymentOKExtra(val amount: BigDecimal)
-data class PaymentFailExtra(val reason: String)
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+data class PendingOpenURLExtra(var url: String? = null)
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+data class PaymentOKExtra(var amount: BigDecimal? = null)
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+data class PaymentFailExtra(var reason: String? = null)
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 data class PaymentStatus(
-        val paymentId: String,
-        val status: PaymentStatusValue,
+        var paymentId: String? = null,
+        var status: PaymentStatusValue? = null,
 
-        val pendingOpenUrlExtra: PendingOpenURLExtra?,
-        val okExtra: PaymentOKExtra?,
-        val failExtra: PaymentFailExtra?)
+        var pendingOpenUrlExtra: PendingOpenURLExtra? = null,
+        var okExtra: PaymentOKExtra? = null,
+        var failExtra: PaymentFailExtra? = null)

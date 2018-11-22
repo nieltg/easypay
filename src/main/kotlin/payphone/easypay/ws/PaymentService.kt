@@ -4,11 +4,16 @@ import java.math.BigDecimal
 import java.util.concurrent.Future
 import javax.jws.WebMethod
 import javax.jws.WebService
+import javax.xml.bind.annotation.*
 import javax.xml.ws.AsyncHandler
 
-data class PaymentMethod(val paymentMethodId: String, val name: String)
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+data class PaymentMethod(var paymentMethodId: String? = null, var name: String? = null)
 
-data class PaymentRequest(val paymentMethodId: String, val amount: BigDecimal)
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+data class PaymentRequest(var paymentMethodId: String? = null, var amount: BigDecimal? = null)
 
 @WebService
 interface PaymentService {
