@@ -62,7 +62,7 @@ open class PaymentServiceEasyPay {
 
         val request = OvoRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
-        request.id = execution.getVariable("id").toString()
+        request.id = execution.processInstanceId
         api.initOvo(request)
     }
 
@@ -76,7 +76,7 @@ open class PaymentServiceEasyPay {
 
         val request = GoPayRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
-        request.id = execution.getVariable("id").toString()
+        request.id = execution.processInstanceId
         api.initGoPay(request)
     }
 
@@ -89,7 +89,7 @@ open class PaymentServiceEasyPay {
 
         val request = VaRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
-        request.id = execution.getVariable("id").toString()
+        request.id = execution.processInstanceId
         api.initVa(request)
     }
 
@@ -105,7 +105,7 @@ open class PaymentServiceEasyPay {
 
         val request:OvoRequest = OvoRequest()
         request.amount = execution.getVariable("amount") as BigDecimal
-        request.id = execution.getVariable("id").toString()
+        request.id = execution.processInstanceId
         request.callbackURL = "http://google.com"
         api.beginPayment(request)
     }
@@ -114,6 +114,11 @@ open class PaymentServiceEasyPay {
     }
 
     fun sendOvoConfirmation(execution: DelegateExecution){
+        var runtimeService = execution.processEngineServices.runtimeService
+
+        runtimeService.createMessageCorrelation("ovo-respond")
+                .processInstanceId(execution.getVariable("id").toString())
+                .correlate()
     }
 
     fun requestGoPay(execution: DelegateExecution){
@@ -125,7 +130,7 @@ open class PaymentServiceEasyPay {
 
         val request:GoPayRequest = GoPayRequest()
         request.amount = execution.getVariable("amount") as BigDecimal
-        request.id = execution.getVariable("id").toString()
+        request.id = execution.processInstanceId
         request.callbackURL = "http://google.com"
         api.begingopayPayment(request)
     }
@@ -134,6 +139,11 @@ open class PaymentServiceEasyPay {
     }
 
     fun sendGoPayConfirmation(execution: DelegateExecution){
+        var runtimeService = execution.processEngineServices.runtimeService
+
+        runtimeService.createMessageCorrelation("go-pay-respond")
+                .processInstanceId(execution.getVariable("id").toString())
+                .correlate()
     }
 
     fun requestVa(execution: DelegateExecution){
@@ -145,7 +155,7 @@ open class PaymentServiceEasyPay {
 
         val request:VaRequest = VaRequest()
         request.amount = execution.getVariable("amount") as BigDecimal
-        request.id = execution.getVariable("id").toString()
+        request.id = execution.processInstanceId
         request.callbackURL = "http://google.com"
         api.beginVaPayment(request)
     }
@@ -154,5 +164,11 @@ open class PaymentServiceEasyPay {
     }
 
     fun sendVaConfirmation(execution: DelegateExecution){
+        var runtimeService = execution.processEngineServices.runtimeService
+
+        runtimeService.createMessageCorrelation("va-respond")
+                .processInstanceId(execution.getVariable("id").toString())
+                .correlate()
     }
 }
+

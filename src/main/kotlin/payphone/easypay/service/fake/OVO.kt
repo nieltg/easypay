@@ -1,5 +1,6 @@
 package payphone.easypay.service.fake
 
+import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import payphone.easypay.service.fake.common.qr.ActivationServlet
 import payphone.easypay.service.fake.common.qr.QRImageServlet
@@ -16,6 +17,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Future
 import javax.ejb.Stateless
+import javax.inject.Inject
 import javax.inject.Named
 import javax.jws.WebMethod
 import javax.jws.WebService
@@ -41,6 +43,9 @@ class OVOQRViewServlet : QRViewServlet(jspPath = "/WEB-INF/jsp/ovo.jsp")
 @Stateless
 @Named("ovoService")
 open class OVOService {
+    @Inject
+    lateinit var runtimeService: RuntimeService
+
     fun beginValidation(execution: DelegateExecution) {
         //execution.setVariable("qrId", execution.processInstanceId)
         //println("PROCESS INSTANCE ID: ${execution.processInstanceId}")
@@ -62,16 +67,21 @@ open class OVOService {
         println(qrurl)
     }
     fun sendConfirmation(execution: DelegateExecution){
-        var callbackUrl:String = execution.getVariable("callbackUrl") as String
-        var con:HttpURLConnection = URL(callbackUrl).openConnection() as HttpURLConnection
-        con.requestMethod = "GET"
+        //var callbackUrl:String = execution.getVariable("callbackUrl") as String
+        //var con:HttpURLConnection = URL(callbackUrl).openConnection() as HttpURLConnection
+        //con.requestMethod = "GET"
 
-        var responseCode:Int = con.responseCode
-        if(responseCode == 200){
-            return
-        }
-        else{
-            throw Exception("can't connect to callback url")
-        }
+        //var responseCode:Int = con.responseCode
+        //if(responseCode == 200){
+        //    return
+        //}
+        //else{
+        //    throw Exception("can't connect to callback url")
+        //}
+        runtimeService = execution.processEngineServices.runtimeService
+
+        runtimeService.createMessageCorrelation("ovo-confirmation")
+                .processInstanceId(execution.getVariable("id").toString())
+                .correlate()
     }
 }
