@@ -7,6 +7,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.history.HistoricProcessInstance
 import org.camunda.bpm.engine.runtime.MessageCorrelationResult
 import org.camunda.bpm.engine.history.HistoricProcessInstanceQuery
+import payphone.easypay.service.fake.OvoRequest
 import java.net.HttpURLConnection
 import java.util.concurrent.Future
 import javax.inject.Inject
@@ -62,6 +63,18 @@ open class PaymentServiceImpl : PaymentService {
 
     override fun waitPaymentStatus(paymentId: String, handler: AsyncHandler<PaymentStatus>): Future<Any> {
         TODO("not implemented")
+    }
+
+    override fun initOvo(request: OvoRequest): String {
+        runtimeService.createMessageCorrelation("ovo-payment-request")
+                .setVariable("amount", request.amount)
+                .setVariable("id", request.id)
+                .correlateWithResult()
+
+        //var transaction = emf.createEntityManager().find(Transaction::class.java, request.id )
+
+        //return transaction.id.toString()
+        return ""
     }
 
 //    override fun beginPayment(paymentMethodId: String, amount: BigDecimal): String {

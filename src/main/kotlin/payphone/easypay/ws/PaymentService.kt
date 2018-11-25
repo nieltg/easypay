@@ -1,6 +1,7 @@
 package payphone.easypay.ws
 
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import payphone.easypay.service.fake.OvoRequest
 import java.math.BigDecimal
 import java.net.HttpURLConnection
 import java.net.URL
@@ -30,6 +31,9 @@ interface PaymentService {
     @WebMethod fun getPaymentStatus(paymentId: String): PaymentStatus
 
     @WebMethod fun waitPaymentStatus(paymentId: String, handler: AsyncHandler<PaymentStatus>): Future<Any>
+
+    @WebMethod fun initOvo(request: OvoRequest): String
+
 }
 
 @Stateless
@@ -45,6 +49,17 @@ open class PaymentServiceEasyPay {
     }
 
     fun initOvo(execution: DelegateExecution) {
+
+        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=PaymentService")
+        val qname = QName("http://ws.easypay.payphone/", "PaymentService")
+
+        val service = Service.create(url, qname)
+        val api = service.getPort(PaymentService::class.java)
+
+        val request = OvoRequest()
+        request.amount = execution.getVariable("paymentAmount") as BigDecimal
+        request.id = execution.getVariable("id").toString()
+        val paymentId = api.initOvo(request)
     }
 
     fun initGoPay(execution: DelegateExecution) {
