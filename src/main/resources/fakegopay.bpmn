@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0567mta" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:process id="FakeGoPay" isExecutable="true">
+    <bpmn:endEvent id="EndEvent_1x8e567">
+      <bpmn:incoming>SequenceFlow_1rgumcg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:receiveTask id="Task_0qoujxi" name="Wait for GoPay activation" messageRef="Message_06xh4oz">
+      <bpmn:incoming>SequenceFlow_0c0c0m1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1mr7ees</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1uozxxv" sourceRef="StartEvent_1" targetRef="Task_1vrl425" />
+    <bpmn:sequenceFlow id="SequenceFlow_0c0c0m1" sourceRef="Task_1vrl425" targetRef="Task_0qoujxi" />
+    <bpmn:sequenceFlow id="SequenceFlow_1mr7ees" sourceRef="Task_0qoujxi" targetRef="IntermediateThrowEvent_1w6kuxq" />
+    <bpmn:serviceTask id="Task_1vrl425" name="Begin GoPay transaction" camunda:expression="${goPayService.beginValidation(execution)}">
+      <bpmn:incoming>SequenceFlow_1uozxxv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0c0c0m1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1uozxxv</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="begin-gopay-payment" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1rgumcg" sourceRef="IntermediateThrowEvent_1w6kuxq" targetRef="EndEvent_1x8e567" />
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_1w6kuxq">
+      <bpmn:incoming>SequenceFlow_1mr7ees</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1rgumcg</bpmn:outgoing>
+      <bpmn:messageEventDefinition camunda:expression="${goPayService.sendConfirmation(execution)}" />
+    </bpmn:intermediateThrowEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_06xh4oz" name="gopay-activation" />
+  <bpmn:message id="begin-gopay-payment" name="begin-gopay-payment" />
+  <bpmn:message id="ovo-confirmation" name="ovo-confirmation" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="FakeGoPay">
+      <bpmndi:BPMNShape id="EndEvent_1x8e567_di" bpmnElement="EndEvent_1x8e567">
+        <dc:Bounds x="588" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ReceiveTask_1m9fipk_di" bpmnElement="Task_0qoujxi">
+        <dc:Bounds x="297" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1uozxxv_di" bpmnElement="SequenceFlow_1uozxxv">
+        <di:waypoint x="75" y="120" />
+        <di:waypoint x="132" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0c0c0m1_di" bpmnElement="SequenceFlow_0c0c0m1">
+        <di:waypoint x="232" y="120" />
+        <di:waypoint x="297" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1mr7ees_di" bpmnElement="SequenceFlow_1mr7ees">
+        <di:waypoint x="397" y="120" />
+        <di:waypoint x="478" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0qjjm7p_di" bpmnElement="Task_1vrl425">
+        <dc:Bounds x="132" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_06c6psq_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="39" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1rgumcg_di" bpmnElement="SequenceFlow_1rgumcg">
+        <di:waypoint x="514" y="120" />
+        <di:waypoint x="588" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0dnr7n8_di" bpmnElement="IntermediateThrowEvent_1w6kuxq">
+        <dc:Bounds x="478" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

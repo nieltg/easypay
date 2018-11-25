@@ -1,5 +1,6 @@
 package payphone.easypay.ws
 
+import org.camunda.bpm.engine.impl.pvm.runtime.ExecutionImpl
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.HistoryService
 import org.camunda.bpm.engine.history.HistoricProcessInstance
@@ -10,6 +11,7 @@ import java.util.concurrent.Future
 import javax.inject.Inject
 import javax.jws.WebService
 import javax.xml.ws.AsyncHandler
+import kotlin.random.Random
 
 @WebService(
         serviceName = "PaymentService", name = "Payment", portName = "payment",
@@ -33,7 +35,12 @@ open class PaymentServiceImpl : PaymentService {
                 .setVariable("paymentAmount", request.amount)
                 .correlateWithResult()
 
-        return result.getExecution().getProcessInstanceId()
+        Random(result.processInstance.processDefinitionId.toInt()).nextBytes(50).toString()
+        val definitionId:String = result.processInstance.processDefinitionId
+        definitionId.indexOf(':')
+        println(definitionId.substring(definitionId.indexOf(':')+2))
+
+        return result.processInstance.processDefinitionId
     }
 
     override fun getPaymentStatus(paymentId: String): PaymentStatus {
