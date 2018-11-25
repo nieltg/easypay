@@ -1,9 +1,7 @@
 package payphone.easypay.ws
 
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import payphone.easypay.service.fake.GoPayRequest
-import payphone.easypay.service.fake.OvoRequest
-import payphone.easypay.service.fake.VaRequest
+import payphone.easypay.service.fake.*
 import java.math.BigDecimal
 import java.net.HttpURLConnection
 import java.net.URL
@@ -65,7 +63,7 @@ open class PaymentServiceEasyPay {
         val request = OvoRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
         request.id = execution.getVariable("id").toString()
-        val paymentId = api.initOvo(request)
+        api.initOvo(request)
     }
 
     fun initGoPay(execution: DelegateExecution) {
@@ -79,7 +77,7 @@ open class PaymentServiceEasyPay {
         val request = GoPayRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
         request.id = execution.getVariable("id").toString()
-        val paymentId = api.initGoPay(request)
+        api.initGoPay(request)
     }
 
     fun initVA(execution: DelegateExecution) {
@@ -92,13 +90,24 @@ open class PaymentServiceEasyPay {
         val request = VaRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
         request.id = execution.getVariable("id").toString()
-        val paymentId = api.initVa(request)
+        api.initVa(request)
     }
 
     fun initBank(execution: DelegateExecution) {
     }
 
     fun requestOvo(execution: DelegateExecution){
+        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=FakeOvoService")
+        val qname = QName("http://fake.service.easypay.payphone/", "FakeOvoService")
+
+        val service = Service.create(url, qname)
+        val api = service.getPort(FakeOvoService::class.java)
+
+        val request:OvoRequest = OvoRequest()
+        request.amount = execution.getVariable("amount") as BigDecimal
+        request.id = execution.getVariable("id").toString()
+        request.callbackURL = "http://google.com"
+        api.beginPayment(request)
     }
 
     fun sendOvoQr(execution: DelegateExecution){
@@ -108,6 +117,17 @@ open class PaymentServiceEasyPay {
     }
 
     fun requestGoPay(execution: DelegateExecution){
+        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=FakeGoPayService")
+        val qname = QName("http://fake.service.easypay.payphone/", "FakeGoPayService")
+
+        val service = Service.create(url, qname)
+        val api = service.getPort(FakeGoPayService::class.java)
+
+        val request:GoPayRequest = GoPayRequest()
+        request.amount = execution.getVariable("amount") as BigDecimal
+        request.id = execution.getVariable("id").toString()
+        request.callbackURL = "http://google.com"
+        api.begingopayPayment(request)
     }
 
     fun sendGoPayQr(execution: DelegateExecution){
@@ -117,6 +137,17 @@ open class PaymentServiceEasyPay {
     }
 
     fun requestVa(execution: DelegateExecution){
+        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=FakeVaService")
+        val qname = QName("http://fake.service.easypay.payphone/", "FakeVaService")
+
+        val service = Service.create(url, qname)
+        val api = service.getPort(FakeVaService::class.java)
+
+        val request:VaRequest = VaRequest()
+        request.amount = execution.getVariable("amount") as BigDecimal
+        request.id = execution.getVariable("id").toString()
+        request.callbackURL = "http://google.com"
+        api.beginVaPayment(request)
     }
 
     fun sendVaQr(execution: DelegateExecution){
