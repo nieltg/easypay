@@ -17,7 +17,7 @@
     </bpmn:serviceTask>
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_1uozxxv</bpmn:outgoing>
-      <bpmn:messageEventDefinition messageRef="ovo-request" />
+      <bpmn:messageEventDefinition messageRef="begin-ovo-payment" />
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1rgumcg" sourceRef="IntermediateThrowEvent_1w6kuxq" targetRef="EndEvent_1x8e567" />
     <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_1w6kuxq">
@@ -27,7 +27,7 @@
     </bpmn:intermediateThrowEvent>
   </bpmn:process>
   <bpmn:message id="Message_06xh4oz" name="ovo-activation" />
-  <bpmn:message id="ovo-request" name="ovo-request" />
+  <bpmn:message id="begin-ovo-payment" name="begin-ovo-payment" />
   <bpmn:message id="ovo-confirmation" name="ovo-confirmation" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="FakeOvo">

@@ -6,6 +6,7 @@ import payphone.easypay.service.fake.common.qr.QRImageServlet
 import payphone.easypay.service.fake.common.qr.QRViewServlet
 import payphone.easypay.ws.PaymentMethod
 import payphone.easypay.ws.PaymentRequest
+import payphone.easypay.ws.PaymentService
 import payphone.easypay.ws.PaymentStatus
 import uk.org.okapibarcode.backend.Pdf417
 import java.io.BufferedReader
@@ -23,7 +24,9 @@ import javax.swing.text.html.HTML
 import javax.xml.bind.annotation.XmlAccessType
 import javax.xml.bind.annotation.XmlAccessorType
 import javax.xml.bind.annotation.XmlRootElement
+import javax.xml.namespace.QName
 import javax.xml.ws.AsyncHandler
+import javax.xml.ws.Service
 
 @WebServlet(urlPatterns = ["/ovo/activation"])
 class OVOActivationServlet : ActivationServlet(messageName = "ovo-activation")
@@ -41,6 +44,22 @@ open class OVOService {
     fun beginValidation(execution: DelegateExecution) {
         execution.setVariable("qrId", execution.processInstanceId)
         println("PROCESS INSTANCE ID: ${execution.processInstanceId}")
+
+
+        val url = URL("http://localhost:9080/PaymentService.wsdl")
+        val qname = QName("http://ws.easypay.payphone/", "PaymentService")
+
+        val service = Service.create(url, qname)
+        println("Service is created.")
+        val api = service.getPort(PaymentService::class.java)
+
+        //val request = BeginValidationResponse()
+        val qrurl:String = "http://167.205.35.211:8080/easypay/ovo/qr?c="+execution.processInstanceId
+
+        //request.url = qrurl
+        //api.beginPayment(request)
+
+        println(qrurl)
     }
     fun sendConfirmation(execution: DelegateExecution){
         var callbackUrl:String = execution.getVariable("callbackUrl") as String
