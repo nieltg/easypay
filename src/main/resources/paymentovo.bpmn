@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0ifhw7t" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:process id="PaymentOvo" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_100vmsx</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_0z989gm" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_100vmsx" sourceRef="StartEvent_1" targetRef="Task_0ivracg" />
+    <bpmn:sequenceFlow id="SequenceFlow_1t2f0iv" sourceRef="Task_0ivracg" targetRef="Task_0j6ee0l" />
+    <bpmn:sequenceFlow id="SequenceFlow_1e640g9" sourceRef="Task_0j6ee0l" targetRef="IntermediateThrowEvent_1u14cud" />
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1u14cud">
+      <bpmn:incoming>SequenceFlow_1e640g9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0o9x4st</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_066576c" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0o9x4st" sourceRef="IntermediateThrowEvent_1u14cud" targetRef="Task_0go9w2j" />
+    <bpmn:endEvent id="EndEvent_12sv43r">
+      <bpmn:incoming>SequenceFlow_1kfw3z1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1kfw3z1" sourceRef="Task_0go9w2j" targetRef="EndEvent_12sv43r" />
+    <bpmn:sendTask id="Task_0ivracg" name="request OVO payment" camunda:expression="${paymentService.requestOvo(execution)}">
+      <bpmn:incoming>SequenceFlow_100vmsx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1t2f0iv</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sendTask id="Task_0j6ee0l" name="send QR Code" camunda:expression="${paymentService.sendOvoQr(execution)}">
+      <bpmn:incoming>SequenceFlow_1t2f0iv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1e640g9</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sendTask id="Task_0go9w2j" name="Send payment confimation" camunda:expression="${paymentService.sendOvoConfirmation(execution)}">
+      <bpmn:incoming>SequenceFlow_0o9x4st</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1kfw3z1</bpmn:outgoing>
+    </bpmn:sendTask>
+  </bpmn:process>
+  <bpmn:message id="Message_0z989gm" name="ovo-payment-request" />
+  <bpmn:message id="Message_066576c" name="ovo-confirmation" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="PaymentOvo">
+      <bpmndi:BPMNShape id="StartEvent_095ld7i_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_100vmsx_di" bpmnElement="SequenceFlow_100vmsx">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="259" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1t2f0iv_di" bpmnElement="SequenceFlow_1t2f0iv">
+        <di:waypoint x="359" y="120" />
+        <di:waypoint x="409" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1e640g9_di" bpmnElement="SequenceFlow_1e640g9">
+        <di:waypoint x="509" y="120" />
+        <di:waypoint x="559" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_15xec3y_di" bpmnElement="IntermediateThrowEvent_1u14cud">
+        <dc:Bounds x="559" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0o9x4st_di" bpmnElement="SequenceFlow_0o9x4st">
+        <di:waypoint x="595" y="120" />
+        <di:waypoint x="645" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_12sv43r_di" bpmnElement="EndEvent_12sv43r">
+        <dc:Bounds x="795" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kfw3z1_di" bpmnElement="SequenceFlow_1kfw3z1">
+        <di:waypoint x="745" y="120" />
+        <di:waypoint x="795" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_1f6ft0z_di" bpmnElement="Task_0ivracg">
+        <dc:Bounds x="259" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_02025bn_di" bpmnElement="Task_0j6ee0l">
+        <dc:Bounds x="409" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_0zd1v7s_di" bpmnElement="Task_0go9w2j">
+        <dc:Bounds x="645" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
