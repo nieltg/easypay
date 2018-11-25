@@ -1,4 +1,4 @@
-package payphone.easypay.service.fake
+package payphone.easypay.ws
 
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
