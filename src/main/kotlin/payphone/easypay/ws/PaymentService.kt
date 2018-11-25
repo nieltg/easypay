@@ -55,4 +55,31 @@ open class PaymentServiceEasyPay {
 
     fun initBank(execution: DelegateExecution) {
     }
+
+    fun requestOvo(execution: DelegateExecution){
+    }
+
+    fun sendOvoQr(execution: DelegateExecution){
+    }
+
+    fun sendOvoConfirmation(execution: DelegateExecution){
+    }
+
+    fun requestGoPay(execution: DelegateExecution){
+    }
+
+    fun sendGoPayQr(execution: DelegateExecution){
+    }
+
+    fun sendGoPayConfirmation(execution: DelegateExecution){
+    }
+
+    fun requestVa(execution: DelegateExecution){
+    }
+
+    fun sendVaQr(execution: DelegateExecution){
+    }
+
+    fun sendVaConfirmation(execution: DelegateExecution){
+    }
 }
