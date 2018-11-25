@@ -7,7 +7,9 @@ import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.history.HistoricProcessInstance
 import org.camunda.bpm.engine.runtime.MessageCorrelationResult
 import org.camunda.bpm.engine.history.HistoricProcessInstanceQuery
+import payphone.easypay.service.fake.GoPayRequest
 import payphone.easypay.service.fake.OvoRequest
+import payphone.easypay.service.fake.VaRequest
 import java.net.HttpURLConnection
 import java.util.concurrent.Future
 import javax.inject.Inject
@@ -76,6 +78,31 @@ open class PaymentServiceImpl : PaymentService {
         //return transaction.id.toString()
         return ""
     }
+
+    override fun initGoPay(request: GoPayRequest): String {
+        runtimeService.createMessageCorrelation("gopay-payment-request")
+                .setVariable("amount", request.amount)
+                .setVariable("id", request.id)
+                .correlateWithResult()
+
+        //var transaction = emf.createEntityManager().find(Transaction::class.java, request.id )
+
+        //return transaction.id.toString()
+        return ""
+    }
+
+    override fun initVa(request: VaRequest): String {
+        runtimeService.createMessageCorrelation("va-payment-request")
+                .setVariable("amount", request.amount)
+                .setVariable("id", request.id)
+                .correlateWithResult()
+
+        //var transaction = emf.createEntityManager().find(Transaction::class.java, request.id )
+
+        //return transaction.id.toString()
+        return ""
+    }
+
 
 //    override fun beginPayment(paymentMethodId: String, amount: BigDecimal): String {
 //        val processVariables = mutableMapOf<String, Any>(

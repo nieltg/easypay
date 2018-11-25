@@ -30,6 +30,14 @@
 
   <xs:element name="initOvoResponse" type="tns:initOvoResponse"/>
 
+  <xs:element name="initGoPay" type="tns:initGoPay"/>
+
+  <xs:element name="initGoPayResponse" type="tns:initGoPayResponse"/>
+
+  <xs:element name="initVa" type="tns:initVa"/>
+
+  <xs:element name="initVaResponse" type="tns:initVaResponse"/>
+
   <xs:complexType name="getPaymentMethods">
     <xs:sequence/>
   </xs:complexType>
@@ -134,6 +142,44 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="initGoPay">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:goPayPaymentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="goPayPaymentRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="initGoPayResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="initVa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:vaPaymentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="vaPaymentRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="initVaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
 </xs:schema>
   </wsdl:types>
   <wsdl:message name="getPaymentMethods">
@@ -168,6 +214,22 @@
     <wsdl:part element="tns:initOvoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="initGoPay">
+    <wsdl:part element="tns:initGoPay" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="initGoPayResponse">
+    <wsdl:part element="tns:initGoPayResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="initVa">
+    <wsdl:part element="tns:initVa" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="initVaResponse">
+    <wsdl:part element="tns:initVaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="PaymentService">
     <wsdl:operation name="getPaymentMethods">
       <wsdl:input message="tns:getPaymentMethods" name="getPaymentMethods">
@@ -191,6 +253,18 @@
       <wsdl:input message="tns:initOvo" name="initOvo">
       </wsdl:input>
       <wsdl:output message="tns:initOvoResponse" name="initOvoResponse">
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="initGoPay">
+      <wsdl:input message="tns:initGoPay" name="initGoPay">
+      </wsdl:input>
+      <wsdl:output message="tns:initGoPayResponse" name="initGoPayResponse">
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="initVa">
+      <wsdl:input message="tns:initVa" name="initVa">
+      </wsdl:input>
+      <wsdl:output message="tns:initVaResponse" name="initVaResponse">
       </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
@@ -229,6 +303,24 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="initOvoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="initGoPay">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="initGoPay">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="initGoPayResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="initVa">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="initVa">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="initVaResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

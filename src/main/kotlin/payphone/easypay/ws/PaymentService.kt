@@ -1,7 +1,9 @@
 package payphone.easypay.ws
 
 import org.camunda.bpm.engine.delegate.DelegateExecution
+import payphone.easypay.service.fake.GoPayRequest
 import payphone.easypay.service.fake.OvoRequest
+import payphone.easypay.service.fake.VaRequest
 import java.math.BigDecimal
 import java.net.HttpURLConnection
 import java.net.URL
@@ -34,6 +36,10 @@ interface PaymentService {
 
     @WebMethod fun initOvo(request: OvoRequest): String
 
+    @WebMethod fun initGoPay(request: GoPayRequest): String
+
+    @WebMethod fun initVa(request: VaRequest): String
+
 }
 
 @Stateless
@@ -63,9 +69,30 @@ open class PaymentServiceEasyPay {
     }
 
     fun initGoPay(execution: DelegateExecution) {
+
+        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=PaymentService")
+        val qname = QName("http://ws.easypay.payphone/", "PaymentService")
+
+        val service = Service.create(url, qname)
+        val api = service.getPort(PaymentService::class.java)
+
+        val request = GoPayRequest()
+        request.amount = execution.getVariable("paymentAmount") as BigDecimal
+        request.id = execution.getVariable("id").toString()
+        val paymentId = api.initGoPay(request)
     }
 
     fun initVA(execution: DelegateExecution) {
+        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=PaymentService")
+        val qname = QName("http://ws.easypay.payphone/", "PaymentService")
+
+        val service = Service.create(url, qname)
+        val api = service.getPort(PaymentService::class.java)
+
+        val request = VaRequest()
+        request.amount = execution.getVariable("paymentAmount") as BigDecimal
+        request.id = execution.getVariable("id").toString()
+        val paymentId = api.initVa(request)
     }
 
     fun initBank(execution: DelegateExecution) {
