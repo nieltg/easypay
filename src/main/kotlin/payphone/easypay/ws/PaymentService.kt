@@ -53,44 +53,30 @@ open class PaymentServiceEasyPay {
     }
 
     fun initOvo(execution: DelegateExecution) {
-
-        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=PaymentService")
-        val qname = QName("http://ws.easypay.payphone/", "PaymentService")
-
-        val service = Service.create(url, qname)
-        val api = service.getPort(PaymentService::class.java)
-
         val request = OvoRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
         request.id = execution.processInstanceId
-        api.initOvo(request)
+        var paymentServiceImpl = PaymentServiceImpl()
+        paymentServiceImpl.runtimeService = execution.processEngineServices.runtimeService
+        paymentServiceImpl.initOvo(request)
     }
 
     fun initGoPay(execution: DelegateExecution) {
-
-        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=PaymentService")
-        val qname = QName("http://ws.easypay.payphone/", "PaymentService")
-
-        val service = Service.create(url, qname)
-        val api = service.getPort(PaymentService::class.java)
-
         val request = GoPayRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
         request.id = execution.processInstanceId
-        api.initGoPay(request)
+        var paymentServiceImpl = PaymentServiceImpl()
+        paymentServiceImpl.runtimeService = execution.processEngineServices.runtimeService
+        paymentServiceImpl.initGoPay(request)
     }
 
     fun initVA(execution: DelegateExecution) {
-        val url = URL("http://167.205.35.211:8080/easypay/wsdl?name=PaymentService")
-        val qname = QName("http://ws.easypay.payphone/", "PaymentService")
-
-        val service = Service.create(url, qname)
-        val api = service.getPort(PaymentService::class.java)
-
         val request = VaRequest()
         request.amount = execution.getVariable("paymentAmount") as BigDecimal
         request.id = execution.processInstanceId
-        api.initVa(request)
+        var paymentServiceImpl = PaymentServiceImpl()
+        paymentServiceImpl.runtimeService = execution.processEngineServices.runtimeService
+        paymentServiceImpl.initVa(request)
     }
 
     fun initBank(execution: DelegateExecution) {
