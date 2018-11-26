@@ -6,12 +6,12 @@ import payphone.easypay.core.entity.PaymentEventType
 import payphone.easypay.core.entity.PaymentRequest
 import java.math.BigDecimal
 import java.util.*
-import javax.ejb.Stateless
+import javax.annotation.ManagedBean
 import javax.inject.Named
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-@Stateless
+@ManagedBean
 @Named
 open class PaymentToolkit {
     @PersistenceContext
