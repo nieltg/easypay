@@ -5,13 +5,12 @@ import payphone.easypay.core.entity.PaymentEvent
 import payphone.easypay.core.entity.PaymentEvent_
 import payphone.easypay.core.entity.PaymentRequest
 import java.util.*
-import javax.ejb.Stateless
 import javax.inject.Inject
 import javax.jws.WebService
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+import javax.transaction.Transactional
 
-@Stateless
 @WebService(
         serviceName = "PaymentService", name = "PaymentService", portName = "payment",
         endpointInterface = "payphone.easypay.core.ws.PaymentService")
@@ -28,6 +27,7 @@ open class PaymentServiceImpl : PaymentService {
             PaymentMethod(paymentMethodId = "bank_va", name = "Transfer to Virtual Account"),
             PaymentMethod(paymentMethodId = "bank", name = "Transfer to Account (unique number)"))
 
+    @Transactional
     override fun beginPayment(request: PaymentRequest): String {
         entityManager.persist(request)
         entityManager.flush()
