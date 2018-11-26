@@ -36,6 +36,8 @@ open class PaymentServiceImpl : PaymentService {
 
         runtimeService.createMessageCorrelation("begin-payment")
                 .processInstanceBusinessKey(paymentId)
+                .setVariable("amount", request.amount)
+                .setVariable("paymentMethodId", request.paymentMethodId)
                 .correlateStartMessage()
 
         return paymentId
