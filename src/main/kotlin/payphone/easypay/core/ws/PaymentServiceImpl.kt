@@ -25,8 +25,8 @@ open class PaymentServiceImpl : PaymentService {
     override fun getPaymentMethods(): List<PaymentMethod> = listOf(
             PaymentMethod(paymentMethodId = "ovo", name = "OVO"),
             PaymentMethod(paymentMethodId = "go_pay", name = "GO-PAY"),
-            PaymentMethod(paymentMethodId = "bank", name = "Transfer ke Virtual Account"),
-            PaymentMethod(paymentMethodId = "bank_classic", name = "Transfer Bank (angka unik)"))
+            PaymentMethod(paymentMethodId = "bank_va", name = "Transfer to Virtual Account"),
+            PaymentMethod(paymentMethodId = "bank", name = "Transfer to Account (unique number)"))
 
     override fun beginPayment(request: PaymentRequest): String {
         entityManager.persist(request)
