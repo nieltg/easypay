@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0ifhw7t" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:process id="PaymentOvo" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="receive OVO payment request">
       <bpmn:outgoing>SequenceFlow_100vmsx</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_0z989gm" />
     </bpmn:startEvent>
@@ -32,6 +32,9 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="PaymentOvo">
       <bpmndi:BPMNShape id="StartEvent_095ld7i_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="173" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="150" y="145" width="82" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_100vmsx_di" bpmnElement="SequenceFlow_100vmsx">
         <di:waypoint x="209" y="120" />

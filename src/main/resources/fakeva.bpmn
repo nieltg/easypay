@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0x40k9e" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:process id="FakeVA" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="begin VA payment">
       <bpmn:outgoing>SequenceFlow_1lyyk5b</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_0b6kcdc" />
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1nzf5rr" sourceRef="Task_0gmpdsj" targetRef="IntermediateThrowEvent_0hl3mi0" />
-    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_0hl3mi0">
-      <bpmn:incoming>SequenceFlow_1nzf5rr</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0bdv4wg</bpmn:outgoing>
-      <bpmn:messageEventDefinition camunda:expression="${vaService.sendConfirmation(execution)}" />
-    </bpmn:intermediateThrowEvent>
-    <bpmn:endEvent id="EndEvent_0crz3oe">
-      <bpmn:incoming>SequenceFlow_0bdv4wg</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0bdv4wg" sourceRef="IntermediateThrowEvent_0hl3mi0" targetRef="EndEvent_0crz3oe" />
+    <bpmn:sequenceFlow id="SequenceFlow_1nzf5rr" sourceRef="Task_0gmpdsj" targetRef="EndEvent_0crz3oe" />
     <bpmn:sequenceFlow id="SequenceFlow_1lyyk5b" sourceRef="StartEvent_1" targetRef="Task_0gmpdsj" />
     <bpmn:receiveTask id="Task_0gmpdsj" name="Wait for VA transaction" messageRef="Message_1chojxo">
       <bpmn:incoming>SequenceFlow_1lyyk5b</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1nzf5rr</bpmn:outgoing>
     </bpmn:receiveTask>
+    <bpmn:endEvent id="EndEvent_0crz3oe" name="send VA confirmation">
+      <bpmn:incoming>SequenceFlow_1nzf5rr</bpmn:incoming>
+      <bpmn:messageEventDefinition camunda:expression="${vaService.sendConfirmation(execution)}" />
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="Message_0b6kcdc" name="begin-va-payment" />
   <bpmn:message id="Message_1chojxo" name="va-activation" />
@@ -27,20 +22,13 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="FakeVA">
       <bpmndi:BPMNShape id="StartEvent_0japqbm_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="173" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="146" y="145" width="90" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1nzf5rr_di" bpmnElement="SequenceFlow_1nzf5rr">
         <di:waypoint x="369" y="120" />
-        <di:waypoint x="419" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateThrowEvent_0v5a3og_di" bpmnElement="IntermediateThrowEvent_0hl3mi0">
-        <dc:Bounds x="419" y="102" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0crz3oe_di" bpmnElement="EndEvent_0crz3oe">
-        <dc:Bounds x="505" y="102" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0bdv4wg_di" bpmnElement="SequenceFlow_0bdv4wg">
-        <di:waypoint x="455" y="120" />
-        <di:waypoint x="505" y="120" />
+        <di:waypoint x="406" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1lyyk5b_di" bpmnElement="SequenceFlow_1lyyk5b">
         <di:waypoint x="209" y="120" />
@@ -48,6 +36,12 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ReceiveTask_1mhavms_di" bpmnElement="Task_0gmpdsj">
         <dc:Bounds x="269" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1fl3a04_di" bpmnElement="EndEvent_0crz3oe">
+        <dc:Bounds x="406" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="394" y="145" width="60" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
