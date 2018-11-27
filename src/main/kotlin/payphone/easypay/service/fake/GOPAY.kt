@@ -5,6 +5,7 @@ import payphone.easypay.service.fake.common.qr.ActivationServlet
 import payphone.easypay.service.fake.common.qr.QRImageServlet
 import payphone.easypay.service.fake.common.qr.QRViewServlet
 import uk.org.okapibarcode.backend.QrCode
+import javax.annotation.ManagedBean
 import javax.ejb.Stateless
 import javax.inject.Named
 import javax.servlet.annotation.WebServlet
@@ -19,12 +20,10 @@ class GOPAYQRImageServlet : QRImageServlet(
 @WebServlet(urlPatterns = ["/gopay"])
 class GOPAYQRViewServlet : QRViewServlet(jspPath = "/WEB-INF/jsp/gopay.jsp")
 
-@Stateless
-@Named("gopayService")
+@ManagedBean
+@Named("gopayToolkit")
 open class GOPAYService {
-    fun beginValidation(execution: DelegateExecution) {
-        val paymentId = execution.getVariable("paymentId").toString()
-
-        execution.setVariable("qrId", paymentId)
+    fun requestQrUrl(execution: DelegateExecution) {
+        execution.setVariable("urlToOpen", "http://167.205.35.211:8080/easypay/gopay?c=${execution.processInstanceId}")
     }
 }
