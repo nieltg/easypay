@@ -5,6 +5,7 @@ import payphone.easypay.service.fake.common.qr.ActivationServlet
 import payphone.easypay.service.fake.common.qr.QRImageServlet
 import payphone.easypay.service.fake.common.qr.QRViewServlet
 import uk.org.okapibarcode.backend.Pdf417
+import javax.annotation.ManagedBean
 import javax.ejb.Stateless
 import javax.inject.Named
 import javax.servlet.annotation.WebServlet
@@ -19,11 +20,11 @@ class OVOQRImageServlet : QRImageServlet(
 @WebServlet(urlPatterns = ["/ovo"])
 class OVOQRViewServlet : QRViewServlet(jspPath = "/WEB-INF/jsp/ovo.jsp")
 
-@Stateless
-@Named("ovoService")
-open class OVOService {
-    fun beginValidation(execution: DelegateExecution) {
-        execution.setVariable("qrId", execution.processInstanceId)
-        println("PROCESS INSTANCE ID: ${execution.processInstanceId}")
+@ManagedBean
+@Named("ovoToolkit")
+open class OVOToolkit {
+    fun requestBarcodeUrl(execution: DelegateExecution) {
+        execution.setVariable("urlToOpen", "http://167.205.35.211:8080/easypay/ovo?c=${execution.processInstanceId}")
+
     }
 }
