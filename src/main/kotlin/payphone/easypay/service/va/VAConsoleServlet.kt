@@ -1,6 +1,10 @@
-package payphone.easypay.service
+package payphone.easypay.service.va
 
 import org.camunda.bpm.engine.RuntimeService
+import payphone.easypay.service.va.entity.VAPaymentHistory
+import payphone.easypay.service.va.entity.VAPaymentHistory_
+import payphone.easypay.service.va.entity.VAPaymentRequest
+import payphone.easypay.service.va.entity.VAPaymentRequest_
 import java.math.BigDecimal
 import javax.annotation.Resource
 import javax.inject.Inject
@@ -13,7 +17,7 @@ import javax.servlet.http.HttpServletResponse
 import javax.transaction.UserTransaction
 
 @WebServlet(urlPatterns = ["/va"])
-open class VAServlet : HttpServlet() {
+open class VAConsoleServlet : HttpServlet() {
     @PersistenceContext
     lateinit var entityManager: EntityManager
 
@@ -69,7 +73,7 @@ open class VAServlet : HttpServlet() {
 
         // Check if amount is sufficient.
 
-        if (amountSum >= request.targetAmount) {
+        if (amountSum >= request.amount) {
             runtimeService.createMessageCorrelation("va-paid")
                     .setVariable("amount", amountSum)
                     .processInstanceBusinessKey(request.paymentId)
