@@ -10,7 +10,10 @@ interface PaymentService {
     @WebMethod fun getPaymentMethods(): List<PaymentMethod>
 
     @WebMethod fun beginPayment(
-            @WebParam paymentMethodId: String, @WebParam amount: BigDecimal): String
+            @WebParam(name = "paymentMethodId") paymentMethodId: String,
+            @WebParam(name = "amount") amount: BigDecimal): String
+
     @WebMethod fun getPaymentEvents(
-            @WebParam paymentId: String, @WebParam lastEventId: Long?): PaymentEventsBlock
+            @WebParam(name = "paymentId") paymentId: String,
+            @WebParam(name = "lastEventId") lastEventId: Long?): PaymentEventsBlock
 }
