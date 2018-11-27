@@ -4,6 +4,7 @@ import org.camunda.bpm.engine.RuntimeService
 import payphone.easypay.core.entity.PaymentEvent
 import payphone.easypay.core.entity.PaymentEvent_
 import payphone.easypay.core.entity.PaymentRequest
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 import javax.jws.WebService
@@ -28,7 +29,9 @@ open class PaymentServiceImpl : PaymentService {
             PaymentMethod(paymentMethodId = "bank", name = "Transfer to Account (unique number)"))
 
     @Transactional
-    override fun beginPayment(request: PaymentRequest): String {
+    override fun beginPayment(paymentMethodId: String, amount: BigDecimal): String {
+        val request = PaymentRequest(paymentMethodId = paymentMethodId, amount = amount)
+
         entityManager.persist(request)
         entityManager.flush()
 
@@ -36,8 +39,8 @@ open class PaymentServiceImpl : PaymentService {
 
         runtimeService.createMessageCorrelation("begin-payment")
                 .processInstanceBusinessKey(paymentId)
-                .setVariable("amount", request.amount)
-                .setVariable("paymentMethodId", request.paymentMethodId)
+                .setVariable("amount", amount)
+                .setVariable("paymentMethodId", paymentMethodId)
                 .correlateStartMessage()
 
         return paymentId

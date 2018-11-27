@@ -1,13 +1,16 @@
 package payphone.easypay.core.ws
 
-import payphone.easypay.core.entity.PaymentRequest
+import java.math.BigDecimal
 import javax.jws.WebMethod
+import javax.jws.WebParam
 import javax.jws.WebService
 
 @WebService
 interface PaymentService {
     @WebMethod fun getPaymentMethods(): List<PaymentMethod>
 
-    @WebMethod fun beginPayment(request: PaymentRequest): String
-    @WebMethod fun getPaymentEvents(paymentId: String, lastEventId: Long?): PaymentEventsBlock
+    @WebMethod fun beginPayment(
+            @WebParam paymentMethodId: String, @WebParam amount: BigDecimal): String
+    @WebMethod fun getPaymentEvents(
+            @WebParam paymentId: String, @WebParam lastEventId: Long?): PaymentEventsBlock
 }
