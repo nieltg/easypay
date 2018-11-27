@@ -34,6 +34,11 @@ repositories {
     }
 }
 
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
 idea {
     module {
         def kaptMain = file('build/generated/source/kapt/main')
