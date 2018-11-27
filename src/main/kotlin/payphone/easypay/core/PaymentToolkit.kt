@@ -35,6 +35,9 @@ open class PaymentToolkit {
 
             PaymentEventType.OPEN_URL ->
                 event.urlToOpen = execution.getVariable("urlToOpen").toString()
+
+            PaymentEventType.ACCOUNT_NUMBER_AVAILABLE ->
+                event.accountNumber = execution.getVariable("accountNumber").toString()
         }
 
         entityManager.persist(event)

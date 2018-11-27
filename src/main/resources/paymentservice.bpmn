@@ -46,6 +46,7 @@
     <bpmn:callActivity id="SubProcess_1rm4xik" name="Initialize virtual account payment" calledElement="PaymentVA">
       <bpmn:extensionElements>
         <camunda:in source="amount" target="amount" />
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0232rz5</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0q6ytdr</bpmn:outgoing>

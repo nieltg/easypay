@@ -17,11 +17,13 @@ data class PaymentEvent(
 
         @XmlAttribute var type: PaymentEventType,
         // SUCCESS, AMOUNT_CHANGED
-        @XmlAttribute @Nullable var amount: BigDecimal? = null,
+        @XmlAttribute var amount: BigDecimal? = null,
         // FAILURE
-        @XmlAttribute @Nullable var reason: String? = null,
+        @XmlAttribute var reason: String? = null,
         // OPEN_URL
-        @XmlAttribute @Nullable var urlToOpen: String? = null) {
+        @XmlAttribute var urlToOpen: String? = null,
+        // ACCOUNT_NUMBER_AVAILABLE
+        @XmlAttribute var accountNumber: String? = null) {
 
     constructor() : this(paymentRequest = PaymentRequest(), type = PaymentEventType.SUCCESS)
 }

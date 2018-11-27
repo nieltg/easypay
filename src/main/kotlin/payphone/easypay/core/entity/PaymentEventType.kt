@@ -6,4 +6,5 @@ enum class PaymentEventType {
 
     OPEN_URL,
     AMOUNT_CHANGED,
+    ACCOUNT_NUMBER_AVAILABLE
 }
