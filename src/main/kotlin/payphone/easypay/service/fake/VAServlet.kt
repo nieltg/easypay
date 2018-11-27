@@ -23,7 +23,7 @@ open class VAServlet : HttpServlet() {
     @Inject
     lateinit var runtimeService: RuntimeService
 
-    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
+    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         servletContext.getRequestDispatcher("/WEB-INF/jsp/va.jsp").forward(req, resp)
     }
 
