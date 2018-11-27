@@ -1,7 +1,10 @@
-package payphone.easypay.service
+package payphone.easypay.service.bank
 
 import org.camunda.bpm.engine.RuntimeService
+import payphone.easypay.service.BankPaymentRequest_
+import payphone.easypay.service.bank.entity.BankPaymentRequest
 import java.math.BigDecimal
+import javax.annotation.Resource
 import javax.inject.Inject
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
@@ -12,13 +15,11 @@ import javax.servlet.http.HttpServletResponse
 import javax.transaction.UserTransaction
 
 @WebServlet(urlPatterns = ["/bank"])
-class BankServlet: HttpServlet() {
+class BankConsoleServlet : HttpServlet() {
     @PersistenceContext
     lateinit var entityManager: EntityManager
-
-    @Inject
-    lateinit var userTransaction:UserTransaction
-
+    @Resource
+    lateinit var userTransaction: UserTransaction
     @Inject
     lateinit var runtimeService: RuntimeService
 
