@@ -4,12 +4,13 @@
     <bpmn:participant id="Participant_12rnn20" name="Payment Service" processRef="PaymentBank" />
     <bpmn:participant id="Participant_1y46mw5" name="Client" processRef="Process_1mmwb3j" />
     <bpmn:messageFlow id="MessageFlow_1a7n610" sourceRef="SendTask_1ofgvtv" targetRef="Participant_1y46mw5" />
+    <bpmn:messageFlow id="MessageFlow_0zkmmea" sourceRef="Task_0wuuje6" targetRef="Participant_1y46mw5" />
   </bpmn:collaboration>
   <bpmn:process id="PaymentBank" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_0fljtsa</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0fljtsa" sourceRef="StartEvent_1" targetRef="SendTask_1ofgvtv" />
+    <bpmn:sequenceFlow id="SequenceFlow_0fljtsa" sourceRef="StartEvent_1" targetRef="Task_0edn8oe" />
     <bpmn:sequenceFlow id="SequenceFlow_1un412i" sourceRef="SendTask_1ofgvtv" targetRef="EndEvent_0gi07dr" />
     <bpmn:endEvent id="EndEvent_0gi07dr">
       <bpmn:incoming>SequenceFlow_1un412i</bpmn:incoming>
@@ -20,11 +21,33 @@
           <camunda:inputParameter name="eventType">SUCCESS</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0fljtsa</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_09xit7k</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1un412i</bpmn:outgoing>
     </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1u4kz4q" sourceRef="Task_0edn8oe" targetRef="Task_0wuuje6" />
+    <bpmn:sendTask id="Task_0edn8oe" name="Begin bank payment" camunda:expression="${bankToolkit.beginPayment(execution)}">
+      <bpmn:incoming>SequenceFlow_0fljtsa</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1u4kz4q</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0o0enr3" sourceRef="Task_0wuuje6" targetRef="IntermediateThrowEvent_1mgwvim" />
+    <bpmn:sendTask id="Task_0wuuje6" name="Send new generated amount" camunda:expression="${paymentToolkit.pushEvent(execution)}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="eventType">AMOUNT_CHANGED</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1u4kz4q</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0o0enr3</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_09xit7k" sourceRef="IntermediateThrowEvent_1mgwvim" targetRef="SendTask_1ofgvtv" />
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1mgwvim">
+      <bpmn:incoming>SequenceFlow_0o0enr3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09xit7k</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_0h9q9xm" />
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmn:process id="Process_1mmwb3j" isExecutable="false" />
+  <bpmn:message id="Message_0h9q9xm" name="bank-paid" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0ff49kg">
       <bpmndi:BPMNShape id="Participant_12rnn20_di" bpmnElement="Participant_12rnn20">
@@ -41,7 +64,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0fljtsa_di" bpmnElement="SequenceFlow_0fljtsa">
         <di:waypoint x="209" y="120" />
-        <di:waypoint x="698" y="120" />
+        <di:waypoint x="233" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1un412i_di" bpmnElement="SequenceFlow_1un412i">
         <di:waypoint x="798" y="120" />
@@ -54,6 +77,31 @@
         <di:waypoint x="741" y="80" />
         <di:waypoint x="741" y="-48" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1u4kz4q_di" bpmnElement="SequenceFlow_1u4kz4q">
+        <di:waypoint x="333" y="120" />
+        <di:waypoint x="386" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_19z8dtq_di" bpmnElement="Task_0edn8oe">
+        <dc:Bounds x="233" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0o0enr3_di" bpmnElement="SequenceFlow_0o0enr3">
+        <di:waypoint x="486" y="120" />
+        <di:waypoint x="566" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_13nmdvs_di" bpmnElement="Task_0wuuje6">
+        <dc:Bounds x="386" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MessageFlow_0zkmmea_di" bpmnElement="MessageFlow_0zkmmea">
+        <di:waypoint x="436" y="80" />
+        <di:waypoint x="436" y="-48" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_09xit7k_di" bpmnElement="SequenceFlow_09xit7k">
+        <di:waypoint x="602" y="120" />
+        <di:waypoint x="698" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_1ym03dt_di" bpmnElement="IntermediateThrowEvent_1mgwvim">
+        <dc:Bounds x="566" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
