@@ -1,4 +1,4 @@
-package payphone.easypay.service.fake.common.qr
+package payphone.easypay.service.common.qr
 
 import uk.org.okapibarcode.backend.Symbol
 import uk.org.okapibarcode.output.Java2DRenderer

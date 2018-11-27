@@ -1,4 +1,4 @@
-package payphone.easypay.service.fake.common.qr
+package payphone.easypay.service.common.qr
 
 import org.camunda.bpm.engine.RuntimeService
 import javax.inject.Inject

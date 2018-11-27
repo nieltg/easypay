@@ -1,4 +1,4 @@
-package payphone.easypay.service.fake.common.qr
+package payphone.easypay.service.common.qr
 
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest

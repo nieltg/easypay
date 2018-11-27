@@ -1,4 +1,4 @@
-package payphone.easypay.service.fake
+package payphone.easypay.service
 
 import java.math.BigDecimal
 import javax.persistence.*

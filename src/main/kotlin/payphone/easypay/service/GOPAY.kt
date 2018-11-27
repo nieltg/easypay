@@ -1,9 +1,9 @@
-package payphone.easypay.service.fake
+package payphone.easypay.service
 
 import org.camunda.bpm.engine.delegate.DelegateExecution
-import payphone.easypay.service.fake.common.qr.ActivationServlet
-import payphone.easypay.service.fake.common.qr.QRImageServlet
-import payphone.easypay.service.fake.common.qr.QRViewServlet
+import payphone.easypay.service.common.qr.ActivationServlet
+import payphone.easypay.service.common.qr.QRImageServlet
+import payphone.easypay.service.common.qr.QRViewServlet
 import uk.org.okapibarcode.backend.QrCode
 import javax.annotation.ManagedBean
 import javax.ejb.Stateless
