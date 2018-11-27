@@ -7,6 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement
 
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-data class PaymentEventsBlock(var events: List<PaymentEvent>, var lastEventId: Long?) {
-    constructor() : this(events = emptyList(), lastEventId = null)
-}
+data class PaymentEventsBlock(
+        var events: List<PaymentEvent>? = null,
+        var lastEventId: Long? = null)

@@ -1,6 +1,5 @@
 package payphone.easypay.core.entity
 
-import org.jetbrains.annotations.Nullable
 import java.math.BigDecimal
 import javax.persistence.*
 import javax.xml.bind.annotation.*

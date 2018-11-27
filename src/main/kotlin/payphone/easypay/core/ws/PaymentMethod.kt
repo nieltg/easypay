@@ -6,6 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement
 
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-data class PaymentMethod(var paymentMethodId: String, var name: String) {
-    constructor() : this(paymentMethodId = "", name = "")
-}
+data class PaymentMethod(
+        var paymentMethodId: String? = null,
+        var name: String? = null)
