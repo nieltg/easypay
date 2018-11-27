@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import javax.transaction.Transactional
 import javax.transaction.UserTransaction
 
 @WebServlet(urlPatterns = ["/va"])
@@ -24,7 +23,11 @@ open class VAServlet : HttpServlet() {
     @Inject
     lateinit var runtimeService: RuntimeService
 
-    override fun doGet(req: HttpServletRequest, resp: HttpServletResponse){
+    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        servletContext.getRequestDispatcher("/WEB-INF/jsp/va.jsp").forward(req, resp)
+    }
+
+    override fun doPost(req: HttpServletRequest, resp: HttpServletResponse){
         val virtualAccount = req.getParameter("accountNumber")
         val amount = req.getParameter("amount").toBigDecimal()
 
