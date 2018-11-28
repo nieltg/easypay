@@ -69,11 +69,11 @@ The `PaymentEvent` object which has been mentioned before contains `type: Paymen
 
 ##### `SUCCESS` Type
 
-This event states that the specified payment process has been successfully done. The final received amount is specified on `amount: BigDecimal` property of `PaymentEvent` object.
+This event states that the specified payment process has been successfully done. The final received amount is specified on `amount: BigDecimal` property of `PaymentEvent` object. No more event will be received after receiving this event.
 
 ##### `FAILURE` Type
 
-This event states that the specified payment process has just been failed. The reason why the payment fails is specified on `reason: String` property of `PaymentEvent` object
+This event states that the specified payment process has just been failed. The reason why the payment fails is specified on `reason: String` property of `PaymentEvent` object. No more event will be received after receiving this event.
 
 ##### `OPEN_URL` Type
 
