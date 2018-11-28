@@ -61,9 +61,9 @@ This is an example of possible output:
 
 This method starts a new payment process from provided `paymentMethodId` and `amount`. This method returns newly created `paymentId: String` for event listening and more additional purposes, maybe, in the future.
 
-#### `getPaymentEvents(paymentMethodId: String, lastEventId: Long?): PaymentEventsBlock`
+#### `getPaymentEvents(paymentId: String, lastEventId: Long?): PaymentEventsBlock`
 
-This method queries list of events which is happened in the specified payment process which is referenced by provided `paymentMethodId`. This method returns an object, containing `events: List<PaymentEvent>` and `lastEventId`. Users can prevent this method for returning already queried events by specifying received `lastEventId` from previous method call to this method. **Note:** Set `lastEventId` to `null` or `0` at the first call of this method.
+This method queries list of events which is happened in the specified payment process which is referenced by provided `paymentId`. This method returns an object, containing `events: List<PaymentEvent>` and `lastEventId`. Users can prevent this method for returning already queried events by specifying received `lastEventId` from previous method call to this method. **Note:** Set `lastEventId` to `null` or `0` at the first call of this method.
 
 The `PaymentEvent` object which has been mentioned before contains `type: PaymentEventType` which is an enumeration type, and additional fields which will be explained later. Users can process the events based of its type.
 
