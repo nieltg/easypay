@@ -5,6 +5,7 @@
     <bpmn:participant id="Participant_1y46mw5" name="Client" processRef="Process_1mmwb3j" />
     <bpmn:messageFlow id="MessageFlow_1a7n610" sourceRef="SendTask_1ofgvtv" targetRef="Participant_1y46mw5" />
     <bpmn:messageFlow id="MessageFlow_0zkmmea" sourceRef="Task_0wuuje6" targetRef="Participant_1y46mw5" />
+    <bpmn:messageFlow id="MessageFlow_0oh4y1n" sourceRef="SendTask_18ejg81" targetRef="Participant_1y46mw5" />
   </bpmn:collaboration>
   <bpmn:process id="PaymentBank" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
@@ -12,10 +13,6 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0fljtsa" sourceRef="StartEvent_1" targetRef="Task_0edn8oe" />
     <bpmn:sequenceFlow id="SequenceFlow_1un412i" sourceRef="SendTask_1ofgvtv" targetRef="EndEvent_0gi07dr" />
-    <bpmn:endEvent id="EndEvent_0gi07dr">
-      <bpmn:incoming>SequenceFlow_1un412i</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0mwdypx</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sendTask id="SendTask_1ofgvtv" name="Send payment success notification" camunda:expression="${paymentToolkit.pushEvent(execution)}">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -63,6 +60,11 @@
       <bpmn:incoming>SequenceFlow_0boggbt</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0mwdypx</bpmn:outgoing>
     </bpmn:sendTask>
+    <bpmn:endEvent id="EndEvent_0gi07dr">
+      <bpmn:incoming>SequenceFlow_1un412i</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0mwdypx</bpmn:incoming>
+      <bpmn:terminateEventDefinition />
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:process id="Process_1mmwb3j" isExecutable="false" />
   <bpmn:message id="Message_0h9q9xm" name="bank-paid" />
@@ -73,9 +75,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="173" y="102" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0gi07dr_di" bpmnElement="EndEvent_0gi07dr">
-        <dc:Bounds x="818" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SendTask_1ofgvtv_di" bpmnElement="SendTask_1ofgvtv">
         <dc:Bounds x="698" y="80" width="100" height="80" />
@@ -136,6 +135,13 @@
         <di:waypoint x="836" y="227" />
         <di:waypoint x="836" y="138" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_0oh4y1n_di" bpmnElement="MessageFlow_0oh4y1n">
+        <di:waypoint x="774" y="187" />
+        <di:waypoint x="774" y="-48" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_13evhwx_di" bpmnElement="EndEvent_0gi07dr">
+        <dc:Bounds x="818" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
