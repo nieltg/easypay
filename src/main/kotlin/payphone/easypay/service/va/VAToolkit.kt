@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext
 
 @ManagedBean
 @Named("vaToolkit")
-class VAToolkit {
+open class VAToolkit {
     @PersistenceContext
     lateinit var entityManager: EntityManager
 

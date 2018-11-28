@@ -32,7 +32,7 @@ open class VAConsoleServlet : HttpServlet() {
     }
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse){
-        val virtualAccount = req.getParameter("accountNumber")
+        val virtualAccount = req.getParameter("accountNumber")!!
         val amount = req.getParameter("amount").toBigDecimal()
 
         // Search for correlated PaymentRequest.

@@ -1,9 +1,8 @@
 package payphone.easypay.service.bank
 
 import org.camunda.bpm.engine.RuntimeService
-import payphone.easypay.service.BankPaymentRequest_
 import payphone.easypay.service.bank.entity.BankPaymentRequest
-import java.math.BigDecimal
+import payphone.easypay.service.bank.entity.BankPaymentRequest_
 import javax.annotation.Resource
 import javax.inject.Inject
 import javax.persistence.EntityManager
@@ -28,7 +27,7 @@ class BankConsoleServlet : HttpServlet() {
     }
 
     override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
-        val amount = BigDecimal(req.getParameter("amount"))
+        val amount = req.getParameter("amount").toBigDecimal()
 
         val builder = entityManager.criteriaBuilder
         val criteria = builder.createQuery(BankPaymentRequest::class.java)
