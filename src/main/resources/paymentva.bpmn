@@ -38,12 +38,6 @@
     </bpmn:receiveTask>
     <bpmn:sequenceFlow id="SequenceFlow_08b830f" sourceRef="BoundaryEvent_1vbp9ts" targetRef="SendTask_01lo7c8" />
     <bpmn:sequenceFlow id="SequenceFlow_06epfvh" sourceRef="SendTask_01lo7c8" targetRef="EndEvent_0gi07dr" />
-    <bpmn:boundaryEvent id="BoundaryEvent_1vbp9ts" attachedToRef="Task_0qk8gzv">
-      <bpmn:outgoing>SequenceFlow_08b830f</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">15S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
     <bpmn:sendTask id="SendTask_0tq77se" name="Send payment success notification" camunda:expression="${paymentToolkit.pushEvent(execution)}">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -68,6 +62,12 @@
       <bpmn:incoming>SequenceFlow_06epfvh</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
+    <bpmn:boundaryEvent id="BoundaryEvent_1vbp9ts" attachedToRef="Task_0qk8gzv">
+      <bpmn:outgoing>SequenceFlow_08b830f</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
   </bpmn:process>
   <bpmn:process id="Process_03iumja" isExecutable="false" />
   <bpmn:message id="Message_1m3xqka" name="va-paid" />
@@ -134,8 +134,8 @@
         <dc:Bounds x="497" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_08b830f_di" bpmnElement="SequenceFlow_08b830f">
-        <di:waypoint x="561" y="178" />
-        <di:waypoint x="561" y="227" />
+        <di:waypoint x="570" y="178" />
+        <di:waypoint x="570" y="227" />
         <di:waypoint x="673" y="227" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_06epfvh_di" bpmnElement="SequenceFlow_06epfvh">
@@ -144,7 +144,7 @@
         <di:waypoint x="822" y="138" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BoundaryEvent_1i50jlf_di" bpmnElement="BoundaryEvent_1vbp9ts">
-        <dc:Bounds x="543" y="142" width="36" height="36" />
+        <dc:Bounds x="552" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_0epxza2_di" bpmnElement="MessageFlow_0epxza2">
         <di:waypoint x="520" y="341" />

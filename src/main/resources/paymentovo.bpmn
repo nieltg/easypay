@@ -30,16 +30,6 @@
       <bpmn:incoming>SequenceFlow_0fljtsa</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0np4hwf</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="SendTask_0k8pt2e" name="Send payment timeout notification" camunda:expression="${paymentToolkit.pushEvent(execution)}">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="eventType">FAILURE</camunda:inputParameter>
-          <camunda:inputParameter name="reason">Timeout</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_1vlxr56</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1dmkrtp</bpmn:outgoing>
-    </bpmn:sendTask>
     <bpmn:sequenceFlow id="SequenceFlow_1vlxr56" sourceRef="BoundaryEvent_148eu8f" targetRef="SendTask_0k8pt2e" />
     <bpmn:sendTask id="SendTask_03fe79x" name="Send payment success notification" camunda:expression="${paymentToolkit.pushEvent(execution)}">
       <bpmn:extensionElements>
@@ -54,12 +44,6 @@
       <bpmn:incoming>SequenceFlow_000as4k</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0a2zfrb</bpmn:outgoing>
     </bpmn:receiveTask>
-    <bpmn:boundaryEvent id="BoundaryEvent_148eu8f" attachedToRef="ReceiveTask_0e8b1mn">
-      <bpmn:outgoing>SequenceFlow_1vlxr56</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_01b9miw">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">15S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0a2zfrb" sourceRef="ReceiveTask_0e8b1mn" targetRef="SendTask_03fe79x" />
     <bpmn:sequenceFlow id="SequenceFlow_000as4k" sourceRef="Task_1u1zqon" targetRef="ReceiveTask_0e8b1mn" />
     <bpmn:sequenceFlow id="SequenceFlow_1dmkrtp" sourceRef="SendTask_0k8pt2e" targetRef="EndEvent_0gi07dr" />
@@ -68,6 +52,22 @@
       <bpmn:incoming>SequenceFlow_1dmkrtp</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
+    <bpmn:sendTask id="SendTask_0k8pt2e" name="Send payment timeout notification" camunda:expression="${paymentToolkit.pushEvent(execution)}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="eventType">FAILURE</camunda:inputParameter>
+          <camunda:inputParameter name="reason">Timeout</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1vlxr56</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1dmkrtp</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:boundaryEvent id="BoundaryEvent_148eu8f" attachedToRef="ReceiveTask_0e8b1mn">
+      <bpmn:outgoing>SequenceFlow_1vlxr56</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_01b9miw">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
   </bpmn:process>
   <bpmn:process id="Process_1l13nzl" isExecutable="false" />
   <bpmn:message id="Message_09cbkpa" name="ovo-activation" />
@@ -89,10 +89,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1oyr8us_di" bpmnElement="SequenceFlow_1oyr8us">
         <di:waypoint x="855" y="120" />
-        <di:waypoint x="882" y="120" />
+        <di:waypoint x="941" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1qik4wq_di" bpmnElement="Participant_1qik4wq">
-        <dc:Bounds x="123" y="-146" width="773" height="89" />
+        <dc:Bounds x="123" y="-146" width="897" height="89" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_029oq6f_di" bpmnElement="MessageFlow_029oq6f">
         <di:waypoint x="830" y="80" />
@@ -113,7 +113,7 @@
         <di:waypoint x="510" y="-57" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1e1pbrj_di" bpmnElement="Participant_1e1pbrj">
-        <dc:Bounds x="123" y="415" width="778" height="95" />
+        <dc:Bounds x="123" y="415" width="895" height="92" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1myxjak_di" bpmnElement="MessageFlow_1myxjak">
         <di:waypoint x="384" y="160" />
@@ -123,19 +123,19 @@
         <dc:Bounds x="624" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SendTask_0k8pt2e_di" bpmnElement="SendTask_0k8pt2e">
-        <dc:Bounds x="755" y="228" width="100" height="80" />
+        <dc:Bounds x="834" y="228" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BoundaryEvent_148eu8f_di" bpmnElement="BoundaryEvent_148eu8f">
-        <dc:Bounds x="606" y="142" width="36" height="36" />
+        <dc:Bounds x="681" y="142" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1vlxr56_di" bpmnElement="SequenceFlow_1vlxr56">
-        <di:waypoint x="624" y="178" />
-        <di:waypoint x="624" y="268" />
-        <di:waypoint x="755" y="268" />
+        <di:waypoint x="699" y="178" />
+        <di:waypoint x="699" y="268" />
+        <di:waypoint x="834" y="268" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_1sb7sfs_di" bpmnElement="MessageFlow_1sb7sfs">
-        <di:waypoint x="689" y="415" />
-        <di:waypoint x="689" y="160" />
+        <di:waypoint x="651" y="415" />
+        <di:waypoint x="651" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0a2zfrb_di" bpmnElement="SequenceFlow_0a2zfrb">
         <di:waypoint x="724" y="120" />
@@ -146,16 +146,16 @@
         <di:waypoint x="624" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_16zrgv2_di" bpmnElement="MessageFlow_16zrgv2">
-        <di:waypoint x="805" y="228" />
-        <di:waypoint x="805" y="-57" />
+        <di:waypoint x="884" y="228" />
+        <di:waypoint x="884" y="-57" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1dmkrtp_di" bpmnElement="SequenceFlow_1dmkrtp">
-        <di:waypoint x="855" y="268" />
-        <di:waypoint x="900" y="268" />
-        <di:waypoint x="900" y="138" />
+        <di:waypoint x="934" y="268" />
+        <di:waypoint x="959" y="268" />
+        <di:waypoint x="959" y="138" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1dd0lom_di" bpmnElement="EndEvent_0gi07dr">
-        <dc:Bounds x="882" y="102" width="36" height="36" />
+        <dc:Bounds x="941" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -65,7 +65,7 @@
     <bpmn:boundaryEvent id="BoundaryEvent_061pzn7" attachedToRef="ReceiveTask_0mzxmwb">
       <bpmn:outgoing>SequenceFlow_171hm9w</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_04ctrgf">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">15S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
   </bpmn:process>
@@ -142,8 +142,8 @@
         <di:waypoint x="677" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_1da6pnm_di" bpmnElement="MessageFlow_1da6pnm">
-        <di:waypoint x="578" y="371" />
-        <di:waypoint x="578" y="160" />
+        <di:waypoint x="565" y="371" />
+        <di:waypoint x="565" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1bks781_di" bpmnElement="SequenceFlow_1bks781">
         <di:waypoint x="851" y="272" />
