@@ -42,7 +42,9 @@ Transfer to Account is a payment method which requires customer to 'transfer' an
 
 An example of client service can be found here, at [LazuliSound/easypay-client](https://github.com/LazuliSound/easypay-client).
 
-### `getPaymentMethods(): List<PaymentMethod>`
+### API
+
+#### `getPaymentMethods(): List<PaymentMethod>`
 
 This method returns a list of `PaymentMethod` objects, containing `paymentMethodId: String` and `name: String` property, which represents available payment methods that can be done using this service.
 
@@ -55,33 +57,33 @@ This is an example of possible output:
 | bank            | Transfer to Account (unique number) |
 | bank_va         | Transfer to Virtual Account         |
 
-### `beginPayment(paymentMethodId: String, amount: BigDecimal): String`
+#### `beginPayment(paymentMethodId: String, amount: BigDecimal): String`
 
 This method starts a new payment process from provided `paymentMethodId` and `amount`. This method returns newly created `paymentMethodId: String` for event listening and more additional purposes, maybe, in the future.
 
-### `getPaymentEvents(paymentMethodId: String, lastEventId: Long?): PaymentEventsBlock`
+#### `getPaymentEvents(paymentMethodId: String, lastEventId: Long?): PaymentEventsBlock`
 
 This method queries list of events which is happened in the specified payment process which is referenced by provided `paymentMethodId`. This method returns an object, containing `events: List<PaymentEvent>` and `lastEventId`. Users can prevent this method for returning already queried events by specifying received `lastEventId` from previous method call to this method.
 
 The `PaymentEvent` object which has been mentioned before contains `type: PaymentEventType` which is an enumeration type, and additional fields which will be explained later. Users can process the events based of its type.
 
-#### `SUCCESS` Type
+##### `SUCCESS` Type
 
 This event states that the specified payment process has been successfully done. The final received amount is specified on `amount: BigDecimal` property of `PaymentEvent` object.
 
-#### `FAILURE` Type
+##### `FAILURE` Type
 
 This event states that the specified payment process has just been failed. The reason why the payment fails is specified on `reason: String` property of `PaymentEvent` object
 
-#### `OPEN_URL` Type
+##### `OPEN_URL` Type
 
 This event states that an URL should be provided to the customer to continue the payment process. The URL itself is provided on `urlToOpen: String` property of `PaymentEvent` object.
 
-#### `AMOUNT_CHANGED` Type
+##### `AMOUNT_CHANGED` Type
 
 This event states that the payment amount has been modified for uniqueness checking. The new payment amount itself should be provided to the customer to continue the payment process. The new payment amount is provided on `amount: BigDecimal` property of `PaymentEvent` object.
 
-#### `ACCOUNT_NUMBER_AVAILABLE` Type
+##### `ACCOUNT_NUMBER_AVAILABLE` Type
 
 This event states that an account number has been available to be provided to the customer to continue the payment process. The account number itself is provided on `accountNumber: String` property of `PaymentEvent` object.
 
