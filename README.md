@@ -28,13 +28,13 @@ Payment with 'GO-PAY' is a payment method which requires customer to scan the sp
 
 ![Virtual Account Payment Console](doc/Screenshot_2018-11-28%20Virtual%20Account%20Payment%20Console.png)
 
-Transfer to Virtual Account is a payment method which requires customer to 'transfer' an amount to specified virtual account number, which is simulated using Virtual Account Payment Console. Users of this service will be informed about the generated account number itself.
+Transfer to Virtual Account is a payment method which requires customer to 'transfer' an amount to specified virtual account number. The *transfer* operation is simulated by entering account number and paid amount in Virtual Account Payment Console, which is available at `/easypay/va`. Users of this service will be informed about the generated account number itself.
 
 ### Transfer to Account (unique number)
 
 ![Bank Payment Console](doc/Screenshot_2018-11-28%20Bank%20Payment%20Console.png)
 
-Transfer to Account is a payment method which requires customer to 'transfer' an amount which has been marked up for identification purpose, which is simulated using Bank Payment Console. Users of this service will be informed about the generated amount.
+Transfer to Account is a payment method which requires customer to 'transfer' an amount which has been marked up for identification purpose. The *transfer* operation is simulated by entering the paid amount in Bank Payment Console, which is available at `/easypay/bank`. Users of this service will be informed about the generated amount.
 
 ## Integration
 
