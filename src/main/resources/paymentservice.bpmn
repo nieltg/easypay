@@ -89,41 +89,9 @@
       <bpmn:incoming>SequenceFlow_04zn390</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1cypp20</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:boundaryEvent id="BoundaryEvent_1b1ux42" attachedToRef="SubProcess_12hfb5m">
-      <bpmn:outgoing>SequenceFlow_1sgwvh8</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">15S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1sgwvh8" sourceRef="BoundaryEvent_1b1ux42" targetRef="EndEvent_07tfd8y" />
     <bpmn:endEvent id="EndEvent_07tfd8y">
       <bpmn:incoming>SequenceFlow_0qrtw5x</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1sgwvh8</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0073r1p</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_14vq9pe</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_090a0rw</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:boundaryEvent id="BoundaryEvent_0nr9hk8" attachedToRef="SubProcess_18z54yo">
-      <bpmn:outgoing>SequenceFlow_0073r1p</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">15S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0073r1p" sourceRef="BoundaryEvent_0nr9hk8" targetRef="EndEvent_07tfd8y" />
-    <bpmn:sequenceFlow id="SequenceFlow_14vq9pe" sourceRef="BoundaryEvent_0036l1e" targetRef="EndEvent_07tfd8y" />
-    <bpmn:boundaryEvent id="BoundaryEvent_0036l1e" attachedToRef="SubProcess_0ndovhz">
-      <bpmn:outgoing>SequenceFlow_14vq9pe</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">15S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
-    <bpmn:boundaryEvent id="BoundaryEvent_01aphz0" attachedToRef="SubProcess_1rm4xik">
-      <bpmn:outgoing>SequenceFlow_090a0rw</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">15S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_090a0rw" sourceRef="BoundaryEvent_01aphz0" targetRef="EndEvent_07tfd8y" />
   </bpmn:process>
   <bpmn:process id="Process_0p7p8lq" isExecutable="false" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -218,41 +186,9 @@
         <di:waypoint x="648" y="120" />
         <di:waypoint x="696" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="BoundaryEvent_07m7tey_di" bpmnElement="BoundaryEvent_1b1ux42">
-        <dc:Bounds x="489" y="142" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1sgwvh8_di" bpmnElement="SequenceFlow_1sgwvh8">
-        <di:waypoint x="525" y="160" />
-        <di:waypoint x="714" y="160" />
-        <di:waypoint x="714" y="138" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1xf4oyl_di" bpmnElement="EndEvent_07tfd8y">
         <dc:Bounds x="696" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BoundaryEvent_0jd5mry_di" bpmnElement="BoundaryEvent_0nr9hk8">
-        <dc:Bounds x="489" y="263" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0073r1p_di" bpmnElement="SequenceFlow_0073r1p">
-        <di:waypoint x="525" y="281" />
-        <di:waypoint x="714" y="281" />
-        <di:waypoint x="714" y="138" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_14vq9pe_di" bpmnElement="SequenceFlow_14vq9pe">
-        <di:waypoint x="523" y="399" />
-        <di:waypoint x="714" y="399" />
-        <di:waypoint x="714" y="138" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="BoundaryEvent_1dczh3t_di" bpmnElement="BoundaryEvent_0036l1e">
-        <dc:Bounds x="487" y="381" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BoundaryEvent_192myg6_di" bpmnElement="BoundaryEvent_01aphz0">
-        <dc:Bounds x="489" y="515" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_090a0rw_di" bpmnElement="SequenceFlow_090a0rw">
-        <di:waypoint x="525" y="533" />
-        <di:waypoint x="714" y="533" />
-        <di:waypoint x="714" y="138" />
-      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
