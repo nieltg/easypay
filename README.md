@@ -87,6 +87,19 @@ This event states that the payment amount has been modified for uniqueness check
 
 This event states that an account number has been available to be provided to the customer to continue the payment process. The account number itself is provided on `accountNumber: String` property of `PaymentEvent` object.
 
+## Deployment
+
+Deployment can be done using Docker by typing the command below.
+
+```
+docker-compose up
+```
+
+The command will starts a PostgreSQL instance and this application which opens these port.
+
+- Port 8080 to serve the application itself.
+- Port 9990 to serve the Wildfly Management Console.
+
 ## Credits
 
 **EasyPay** is bought to you by **payphone** team.
