@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:11-alpine
+    environment:
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=easypay
+      - POSTGRES_PASSWORD=easypay
+
+  easypay:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+      - 9990:9990
+    environment:
+      - DB_DRIVER=org.postgresql.Driver
+      - DB_URL=jdbc:postgresql://db:5432/easypay
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=easypay
+      - WAIT_FOR=db:5432
+
+volumes:
+  db_data:
